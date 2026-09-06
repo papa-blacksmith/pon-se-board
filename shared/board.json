@@ -1,6 +1,6 @@
 {
   "version": 4.2,
-  "updatedAt": "2026-09-06T14:09:28.316Z",
+  "updatedAt": "2026-09-06T14:22:35.561Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -84,13 +84,13 @@
     },
     {
       "id": "fdd26bc8-d4e4-4a51-aeee-81ec3dfc4759",
-      "name": "",
+      "name": "ACJapan",
       "emoji": "💡",
       "color": "#e5d3ff",
       "volume": 1,
-      "fileName": "",
+      "fileName": "acziyapanhakonohuo-dong-wozhi-yuan-shiteimasu.mp3",
       "shape": "squircle",
-      "remotePath": ""
+      "remotePath": "shared/audio/fdd26bc8-d4e4-4a51-aeee-81ec3dfc4759.mp3"
     },
     {
       "id": "4d6ba789-7a7f-40be-89a7-db7b3bedfd45",
