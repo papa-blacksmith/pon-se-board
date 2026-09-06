@@ -78,3 +78,18 @@ githubPutBase64 = async function(path, base64, token, message) {
 
   return await res.json();
 };
+
+// v4.2 is loaded with a unique URL every page load so older PWA/service-worker caches
+// cannot keep the old owner/local-draft behavior alive.
+(function loadOwnerSyncV42() {
+  const s = document.createElement("script");
+  s.src = `./owner-sync-fix.js?v=4.2.0&t=${Date.now()}`;
+  s.async = false;
+  s.onload = () => {
+    const token = sessionStorage.getItem(OWNER_TOKEN_KEY);
+    if (token && typeof enterOwner === "function") {
+      enterOwner(token).catch(err => console.warn("v4.2 owner refresh failed", err));
+    }
+  };
+  document.head.appendChild(s);
+})();
