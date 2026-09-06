@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#ff9fc7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="PON! SE Board" />
+  <title>PON! SE Board</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">STREAM SOUND BOARD</div>
+        <h1>🎀 PON! SE Board</h1>
+        <p>36個のSEを、好きな音・名前・色で登録できます。</p>
+      </div>
+      <button id="editToggle" class="pill secondary" type="button">✏️ 編集モード</button>
+    </header>
+
+    <section class="control-card">
+      <div class="control-row">
+        <label class="volume-wrap">
+          <span>🔊 MASTER</span>
+          <input id="masterVolume" type="range" min="0" max="1" step="0.01" value="1" />
+          <strong id="masterVolumeLabel">100%</strong>
+        </label>
+        <button id="stopAll" class="pill danger" type="button">⏹ ALL STOP</button>
+      </div>
+      <div class="hint">
+        通常：タップで再生　／　編集モード：タップで設定　／　長押しでも設定できます
+      </div>
+    </section>
+
+    <main>
+      <div id="board" class="board" aria-label="SEボード"></div>
+    </main>
+
+    <footer>
+      <span>データはこの端末内に保存されます。</span>
+      <button id="resetAll" class="text-button" type="button">すべて初期化</button>
+    </footer>
+  </div>
+
+  <dialog id="editorDialog" class="editor-dialog">
+    <form method="dialog" id="editorForm">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow">SLOT SETTING</div>
+          <h2 id="editorTitle">SEを登録</h2>
+        </div>
+        <button class="icon-close" value="cancel" aria-label="閉じる">✕</button>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          <span>ボタン名</span>
+          <input id="slotName" type="text" maxlength="16" placeholder="例：拍手" />
+        </label>
+
+        <label>
+          <span>絵文字</span>
+          <input id="slotEmoji" type="text" maxlength="4" placeholder="👏" />
+        </label>
+
+        <label class="full">
+          <span>SEファイル</span>
+          <input id="slotFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" />
+          <small id="currentFileName">未登録</small>
+        </label>
+
+        <label class="full">
+          <span>個別音量</span>
+          <div class="inline-range">
+            <input id="slotVolume" type="range" min="0" max="1" step="0.01" value="1" />
+            <strong id="slotVolumeLabel">100%</strong>
+          </div>
+        </label>
+
+        <fieldset class="full">
+          <legend>ボタンカラー</legend>
+          <div id="colorChoices" class="color-choices"></div>
+        </fieldset>
+      </div>
+
+      <div class="dialog-actions">
+        <button id="deleteSlot" class="pill danger ghost" type="button">🗑 登録解除</button>
+        <div class="spacer"></div>
+        <button class="pill secondary" value="cancel">キャンセル</button>
+        <button id="saveSlot" class="pill primary" type="button">💾 保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
