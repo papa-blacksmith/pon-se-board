@@ -1,4 +1,4 @@
-// PON! SE Board v4.3 — owner permission validation + ordered hotfix loader
+// PON! SE Board v4.4 — owner permission validation + ordered compatibility loader
 
 validateToken = async function(token) {
   if (!token?.trim()) return { ok:false, message:"GitHub Tokenを入力してください" };
@@ -56,7 +56,7 @@ githubPutBase64 = async function(path, base64, token, message) {
   return await res.json();
 };
 
-(function loadV43Fixes() {
+(function loadV44Fixes() {
   const loadScript = src => new Promise((resolve,reject) => {
     const s = document.createElement("script");
     s.src = src;
@@ -68,15 +68,17 @@ githubPutBase64 = async function(path, base64, token, message) {
 
   (async () => {
     try {
-      await loadScript(`./owner-sync-fix.js?v=4.3.0&t=${Date.now()}`);
-      await loadScript(`./v43-fix.js?v=4.3.0&t=${Date.now()}`);
+      // Order matters: cloud sync -> iPhone file/SVG fixes -> Web Audio volume engine.
+      await loadScript(`./owner-sync-fix.js?v=4.4.0&t=${Date.now()}`);
+      await loadScript(`./v43-fix.js?v=4.4.0&t=${Date.now()}`);
+      await loadScript(`./v44-mobile-audio.js?v=4.4.0&t=${Date.now()}`);
 
       const token = sessionStorage.getItem(OWNER_TOKEN_KEY);
       if (token && typeof enterOwner === "function") {
-        await enterOwner(token).catch(err => console.warn("v4.3 owner refresh failed", err));
+        await enterOwner(token).catch(err => console.warn("v4.4 owner refresh failed", err));
       }
     } catch (err) {
-      console.error("v4.3 hotfix load failed", err);
+      console.error("v4.4 compatibility load failed", err);
     }
   })();
 })();
