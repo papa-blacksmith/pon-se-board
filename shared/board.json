@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "updatedAt": "2026-09-06T03:21:51.250Z",
+  "updatedAt": "2026-09-06T13:05:20.358Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -14,7 +14,7 @@
     },
     {
       "id": "69ec80e9-69ff-45af-823f-6afead00a7dc",
-      "name": "",
+      "name": "JOJO",
       "emoji": "😂",
       "color": "#ffc5d1",
       "volume": 1,
@@ -24,13 +24,13 @@
     },
     {
       "id": "584481b8-dbcc-48df-9905-2657310e2dd6",
-      "name": "",
+      "name": "クレヨンしんちゃんげんこつ",
       "emoji": "😱",
       "color": "#ffe2b7",
       "volume": 1,
-      "fileName": "",
+      "fileName": "kureyonshinchiyan-genkotsu.mp3",
       "shape": "paw",
-      "remotePath": ""
+      "remotePath": "shared/audio/584481b8-dbcc-48df-9905-2657310e2dd6.mp3"
     },
     {
       "id": "1c525e77-cc57-4976-8f9f-69ffed62a3cf",
@@ -64,23 +64,23 @@
     },
     {
       "id": "8f283fa3-7789-4146-8314-f89a42ab8bd4",
-      "name": "",
+      "name": "ピーーーー音",
       "emoji": "🥁",
       "color": "#c8edff",
       "volume": 1,
-      "fileName": "",
+      "fileName": "pijin-zhi-yin.mp3",
       "shape": "circle",
-      "remotePath": ""
+      "remotePath": "shared/audio/8f283fa3-7789-4146-8314-f89a42ab8bd4.mp3"
     },
     {
       "id": "c11f76e5-b4c0-4ef9-9b1b-0fb2d8c9819b",
-      "name": "",
+      "name": "ドラえもん秘密兵器",
       "emoji": "🔔",
       "color": "#d9ddff",
       "volume": 1,
-      "fileName": "",
+      "fileName": "mi-mi-dao-ju.mp3",
       "shape": "paw",
-      "remotePath": ""
+      "remotePath": "shared/audio/c11f76e5-b4c0-4ef9-9b1b-0fb2d8c9819b.mp3"
     },
     {
       "id": "fdd26bc8-d4e4-4a51-aeee-81ec3dfc4759",
