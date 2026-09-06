@@ -9,8 +9,9 @@
   <meta name="apple-mobile-web-app-title" content="PON! SE Board" />
   <title>PON! SE Board</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=4.1.1" />
-  <link rel="stylesheet" href="v4.css?v=4.1.1" />
+  <link rel="stylesheet" href="styles.css?v=4.3.0" />
+  <link rel="stylesheet" href="v4.css?v=4.3.0" />
+  <link rel="stylesheet" href="v43.css?v=4.3.0" />
 </head>
 <body>
   <div class="app-shell">
@@ -70,7 +71,7 @@
       <div class="form-grid">
         <label><span>ボタン名</span><input id="slotName" type="text" maxlength="16" placeholder="例：拍手" /></label>
         <label><span>絵文字</span><input id="slotEmoji" type="text" maxlength="4" placeholder="👏" /></label>
-        <label class="full"><span>SEファイル</span><input id="slotFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" /><small id="currentFileName">未登録</small></label>
+        <label class="full"><span>SEファイル</span><input id="slotFile" type="file" accept="audio/*,video/quicktime,.mov,.mp3,.wav,.m4a,.aac,.ogg" /><small id="currentFileName">未登録</small></label>
         <label class="full"><span>個別音量</span><div class="inline-range"><input id="slotVolume" type="range" min="0" max="1" step="0.01" value="1" /><strong id="slotVolumeLabel">100%</strong></div></label>
         <fieldset class="full"><legend>ボタンのかたち</legend><div id="shapeChoices" class="shape-choices"></div></fieldset>
         <fieldset class="full"><legend>ボタンカラー</legend><div id="colorChoices" class="color-choices"></div></fieldset>
@@ -106,7 +107,7 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=4.1.1"></script>
-  <script src="permission-fix.js?v=4.1.1"></script>
+  <script src="app.js?v=4.3.0"></script>
+  <script src="permission-fix.js?v=4.3.0"></script>
 </body>
 </html>
