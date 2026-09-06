@@ -1,5 +1,14 @@
-const CACHE = "pon-se-board-v4-1-permission-fix";
-const ASSETS = ["./", "./index.html", "./styles.css", "./v4.css", "./app.js", "./permission-fix.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "pon-se-board-v4-1-1-owner-fix";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./styles.css?v=4.1.1",
+  "./v4.css?v=4.1.1",
+  "./app.js?v=4.1.1",
+  "./permission-fix.js?v=4.1.1",
+  "./manifest.webmanifest",
+  "./icon.svg"
+];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
@@ -7,7 +16,9 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))));
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+  );
   self.clients.claim();
 });
 
@@ -17,10 +28,10 @@ self.addEventListener("fetch", event => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(event.request).then(response => {
-      const copy=response.clone();
-      caches.open(CACHE).then(cache=>cache.put(event.request,copy));
+    fetch(event.request, { cache: "no-store" }).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE).then(cache => cache.put(event.request, copy));
       return response;
-    }).catch(()=>caches.match(event.request).then(cached=>cached||caches.match("./index.html")))
+    }).catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
   );
 });
