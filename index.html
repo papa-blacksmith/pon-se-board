@@ -9,8 +9,8 @@
   <meta name="apple-mobile-web-app-title" content="PON! SE Board" />
   <title>PON! SE Board</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="v4.css" />
+  <link rel="stylesheet" href="styles.css?v=4.1.1" />
+  <link rel="stylesheet" href="v4.css?v=4.1.1" />
 </head>
 <body>
   <div class="app-shell">
@@ -68,34 +68,12 @@
       </div>
 
       <div class="form-grid">
-        <label>
-          <span>ボタン名</span>
-          <input id="slotName" type="text" maxlength="16" placeholder="例：拍手" />
-        </label>
-        <label>
-          <span>絵文字</span>
-          <input id="slotEmoji" type="text" maxlength="4" placeholder="👏" />
-        </label>
-        <label class="full">
-          <span>SEファイル</span>
-          <input id="slotFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" />
-          <small id="currentFileName">未登録</small>
-        </label>
-        <label class="full">
-          <span>個別音量</span>
-          <div class="inline-range">
-            <input id="slotVolume" type="range" min="0" max="1" step="0.01" value="1" />
-            <strong id="slotVolumeLabel">100%</strong>
-          </div>
-        </label>
-        <fieldset class="full">
-          <legend>ボタンのかたち</legend>
-          <div id="shapeChoices" class="shape-choices"></div>
-        </fieldset>
-        <fieldset class="full">
-          <legend>ボタンカラー</legend>
-          <div id="colorChoices" class="color-choices"></div>
-        </fieldset>
+        <label><span>ボタン名</span><input id="slotName" type="text" maxlength="16" placeholder="例：拍手" /></label>
+        <label><span>絵文字</span><input id="slotEmoji" type="text" maxlength="4" placeholder="👏" /></label>
+        <label class="full"><span>SEファイル</span><input id="slotFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" /><small id="currentFileName">未登録</small></label>
+        <label class="full"><span>個別音量</span><div class="inline-range"><input id="slotVolume" type="range" min="0" max="1" step="0.01" value="1" /><strong id="slotVolumeLabel">100%</strong></div></label>
+        <fieldset class="full"><legend>ボタンのかたち</legend><div id="shapeChoices" class="shape-choices"></div></fieldset>
+        <fieldset class="full"><legend>ボタンカラー</legend><div id="colorChoices" class="color-choices"></div></fieldset>
       </div>
 
       <div class="dialog-actions">
@@ -110,24 +88,14 @@
   <dialog id="ownerDialog" class="editor-dialog owner-dialog">
     <form method="dialog" id="ownerForm">
       <div class="dialog-head">
-        <div>
-          <div class="eyebrow">OWNER LOGIN</div>
-          <h2>🔐 オーナーモード</h2>
-        </div>
+        <div><div class="eyebrow">OWNER LOGIN</div><h2>🔐 オーナーモード</h2></div>
         <button class="icon-close" value="cancel" aria-label="閉じる">✕</button>
       </div>
       <div class="owner-login-body">
         <p>このボードのGitHubリポジトリだけに書き込める <strong>Fine-grained personal access token</strong> を入力します。</p>
-        <label>
-          <span>GitHub Token</span>
-          <input id="ownerToken" type="password" autocomplete="off" placeholder="github_pat_..." />
-        </label>
-        <div class="security-note">
-          🔒 トークンはこのタブの <strong>sessionStorage</strong> にだけ保持し、公開データには保存しません。権限は <strong>Contents: Read and write</strong>、対象リポジトリは <strong>pon-se-boardのみ</strong> を推奨します。
-        </div>
-        <div class="public-note">
-          ⚠️ 「みんなに公開」を押したSE音声は、公開GitHubリポジトリから誰でも再生できる状態になります。
-        </div>
+        <label><span>GitHub Token</span><input id="ownerToken" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
+        <div class="security-note">🔒 トークンはこのタブの <strong>sessionStorage</strong> にだけ保持し、公開データには保存しません。権限は <strong>Contents: Read and write</strong>、対象リポジトリは <strong>pon-se-boardのみ</strong> を推奨します。</div>
+        <div class="public-note">⚠️ 「みんなに公開」を押したSE音声は、公開GitHubリポジトリから誰でも再生できる状態になります。</div>
       </div>
       <div class="dialog-actions">
         <div class="spacer"></div>
@@ -138,7 +106,7 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
-  <script src="permission-fix.js"></script>
+  <script src="app.js?v=4.1.1"></script>
+  <script src="permission-fix.js?v=4.1.1"></script>
 </body>
 </html>
