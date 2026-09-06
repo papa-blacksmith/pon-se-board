@@ -1,6 +1,6 @@
 {
   "version": 4.2,
-  "updatedAt": "2026-09-06T14:06:10.171Z",
+  "updatedAt": "2026-09-06T14:09:28.316Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -44,13 +44,13 @@
     },
     {
       "id": "ae0b95d2-1f5e-4c48-9f81-38bbe9af4925",
-      "name": "",
-      "emoji": "💥",
+      "name": "白いパラソル",
+      "emoji": "⛱️",
       "color": "#dff5b5",
       "volume": 1,
-      "fileName": "",
-      "shape": "paw",
-      "remotePath": ""
+      "fileName": "ScreenRecording_09-06-2026 22-01-05_1.mp3",
+      "shape": "star",
+      "remotePath": "shared/audio/ae0b95d2-1f5e-4c48-9f81-38bbe9af4925.mp3"
     },
     {
       "id": "8ecfd561-4754-46f9-8de4-e305f4f420dd",
