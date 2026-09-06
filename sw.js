@@ -1,11 +1,14 @@
-const CACHE = "pon-se-board-v4-1-1-owner-fix";
+const CACHE = "pon-se-board-v4-3-iphone-shapes";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=4.1.1",
-  "./v4.css?v=4.1.1",
-  "./app.js?v=4.1.1",
-  "./permission-fix.js?v=4.1.1",
+  "./styles.css?v=4.3.0",
+  "./v4.css?v=4.3.0",
+  "./v43.css?v=4.3.0",
+  "./app.js?v=4.3.0",
+  "./permission-fix.js?v=4.3.0",
+  "./owner-sync-fix.js?v=4.3.0",
+  "./v43-fix.js?v=4.3.0",
   "./manifest.webmanifest",
   "./icon.svg"
 ];
@@ -28,7 +31,7 @@ self.addEventListener("fetch", event => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(event.request, { cache: "no-store" }).then(response => {
+    fetch(event.request, { cache:"no-store" }).then(response => {
       const copy = response.clone();
       caches.open(CACHE).then(cache => cache.put(event.request, copy));
       return response;
