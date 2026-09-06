@@ -17,7 +17,7 @@
       <div>
         <div class="eyebrow">STREAM SOUND BOARD</div>
         <h1>🎀 PON! SE Board</h1>
-        <p>36個のSEを、好きな音・名前・色で登録できます。</p>
+        <p>36個のSEを、好きな音・名前・色・かたちで登録できます。</p>
       </div>
       <button id="editToggle" class="pill secondary" type="button">✏️ 編集モード</button>
     </header>
@@ -31,9 +31,7 @@
         </label>
         <button id="stopAll" class="pill danger" type="button">⏹ ALL STOP</button>
       </div>
-      <div class="hint">
-        通常：タップで再生　／　編集モード：タップで設定　／　長押しでも設定できます
-      </div>
+      <div class="hint">通常：タップで再生　／　編集モード：タップで設定　／　長押しでも設定できます</div>
     </section>
 
     <main>
@@ -82,6 +80,11 @@
         </label>
 
         <fieldset class="full">
+          <legend>ボタンのかたち</legend>
+          <div id="shapeChoices" class="shape-choices"></div>
+        </fieldset>
+
+        <fieldset class="full">
           <legend>ボタンカラー</legend>
           <div id="colorChoices" class="color-choices"></div>
         </fieldset>
@@ -97,7 +100,6 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
   <script src="app.js"></script>
 </body>
 </html>
