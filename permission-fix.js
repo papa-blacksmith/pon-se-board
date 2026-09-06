@@ -1,52 +1,32 @@
-// PON! SE Board v4.1 — owner token permission validation hotfix
-// A public repository can return 200 for GET /repos/... even when the PAT has no write access.
-// This patch verifies real Contents: write permission with GitHub's Create-a-blob endpoint.
+// PON! SE Board v4.3 — owner permission validation + ordered hotfix loader
 
 validateToken = async function(token) {
-  if (!token?.trim()) {
-    return { ok:false, message:"GitHub Tokenを入力してください" };
-  }
+  if (!token?.trim()) return { ok:false, message:"GitHub Tokenを入力してください" };
 
   try {
     const userRes = await fetch("https://api.github.com/user", {
-      headers: githubHeaders(token),
-      cache: "no-store"
+      headers: githubHeaders(token), cache:"no-store"
     });
+    if (userRes.status === 401) return { ok:false, message:"Tokenが無効です。新しいFine-grained tokenを作成してください。" };
+    if (!userRes.ok) return { ok:false, message:`GitHub認証に失敗しました (${userRes.status})` };
 
-    if (userRes.status === 401) {
-      return { ok:false, message:"Tokenが無効です。新しいFine-grained tokenを作成してください。" };
-    }
-    if (!userRes.ok) {
-      return { ok:false, message:`GitHub認証に失敗しました (${userRes.status})` };
-    }
-
-    // This endpoint requires repository Contents: write. It creates only an unreferenced
-    // tiny Git blob, so it does not change the branch, board, files, or visible commit history.
     const probeRes = await fetch(`${API_BASE}/git/blobs`, {
-      method: "POST",
-      headers: { ...githubHeaders(token), "Content-Type":"application/json" },
-      body: JSON.stringify({
-        content: "PON SE Board owner permission check",
-        encoding: "utf-8"
-      })
+      method:"POST",
+      headers:{ ...githubHeaders(token), "Content-Type":"application/json" },
+      body:JSON.stringify({ content:"PON SE Board owner permission check", encoding:"utf-8" })
     });
 
     if (probeRes.status === 403 || probeRes.status === 404) {
       sessionStorage.removeItem(OWNER_TOKEN_KEY);
       return {
         ok:false,
-        message:"このTokenには pon-se-board への書き込み権限がありません。GitHubで Repository access → Only select repositories → pon-se-board、Repository permissions → Contents → Read and write にして、新しいTokenを入力してください。"
+        message:"このTokenには pon-se-board への書き込み権限がありません。Repository access → pon-se-board、Repository permissions → Contents → Read and write にしてください。"
       };
     }
-
     if (!probeRes.ok) {
-      const info = await probeRes.text().catch(() => "");
-      return {
-        ok:false,
-        message:`書き込み権限の確認に失敗しました (${probeRes.status}) ${info.slice(0,80)}`
-      };
+      const info = await probeRes.text().catch(()=>"");
+      return { ok:false, message:`書き込み権限の確認に失敗しました (${probeRes.status}) ${info.slice(0,80)}` };
     }
-
     return { ok:true };
   } catch (err) {
     console.error(err);
@@ -66,30 +46,37 @@ githubPutBase64 = async function(path, base64, token, message) {
   });
 
   if (!res.ok) {
-    const info = await res.text().catch(() => "");
-
+    const info = await res.text().catch(()=>"");
     if (res.status === 403 && info.includes("Resource not accessible by personal access token")) {
       sessionStorage.removeItem(OWNER_TOKEN_KEY);
-      throw new Error("GitHub Tokenの書き込み権限が不足しています。pon-se-board を対象にし、Contents を Read and write にしたFine-grained tokenを作り直して、右上の『オーナー』から再入力してください。");
+      throw new Error("GitHub Tokenの書き込み権限が不足しています。ContentsをRead and writeにしたTokenを入力し直してください。");
     }
-
-    throw new Error(`GitHub PUT ${path}: ${res.status} ${info.slice(0,160)}`);
+    throw new Error(`GitHub PUT ${path}: ${res.status} ${info.slice(0,180)}`);
   }
-
   return await res.json();
 };
 
-// v4.2 is loaded with a unique URL every page load so older PWA/service-worker caches
-// cannot keep the old owner/local-draft behavior alive.
-(function loadOwnerSyncV42() {
-  const s = document.createElement("script");
-  s.src = `./owner-sync-fix.js?v=4.2.0&t=${Date.now()}`;
-  s.async = false;
-  s.onload = () => {
-    const token = sessionStorage.getItem(OWNER_TOKEN_KEY);
-    if (token && typeof enterOwner === "function") {
-      enterOwner(token).catch(err => console.warn("v4.2 owner refresh failed", err));
+(function loadV43Fixes() {
+  const loadScript = src => new Promise((resolve,reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = false;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+
+  (async () => {
+    try {
+      await loadScript(`./owner-sync-fix.js?v=4.3.0&t=${Date.now()}`);
+      await loadScript(`./v43-fix.js?v=4.3.0&t=${Date.now()}`);
+
+      const token = sessionStorage.getItem(OWNER_TOKEN_KEY);
+      if (token && typeof enterOwner === "function") {
+        await enterOwner(token).catch(err => console.warn("v4.3 owner refresh failed", err));
+      }
+    } catch (err) {
+      console.error("v4.3 hotfix load failed", err);
     }
-  };
-  document.head.appendChild(s);
+  })();
 })();
