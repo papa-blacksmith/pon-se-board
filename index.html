@@ -10,6 +10,7 @@
   <title>PON! SE Board</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v4.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -17,9 +18,13 @@
       <div>
         <div class="eyebrow">STREAM SOUND BOARD</div>
         <h1>🎀 PON! SE Board</h1>
-        <p>36個のSEを、好きな音・名前・色・かたちで登録できます。</p>
+        <p>公開したSEをみんなで再生。オーナーだけが36枠を編集できます。</p>
       </div>
-      <button id="editToggle" class="pill secondary" type="button">✏️ 編集モード</button>
+      <div class="mode-area">
+        <span id="modeBadge" class="mode-badge viewer">👀 視聴者モード</span>
+        <button id="ownerAccessBtn" class="pill secondary" type="button">🔐 オーナー</button>
+        <button id="ownerLogout" class="pill secondary hidden" type="button">↩ 視聴者へ</button>
+      </div>
     </header>
 
     <section class="control-card">
@@ -31,7 +36,12 @@
         </label>
         <button id="stopAll" class="pill danger" type="button">⏹ ALL STOP</button>
       </div>
-      <div class="hint">通常：タップで再生　／　編集モード：タップで設定　／　長押しでも設定できます</div>
+      <div class="hint" id="modeHint">視聴者モード：公開済みのSEをタップして再生できます。</div>
+      <div id="ownerToolbar" class="owner-toolbar hidden">
+        <button id="editToggle" class="pill secondary" type="button">✏️ 編集モード</button>
+        <button id="publishCloud" class="pill primary" type="button">☁️ みんなに公開</button>
+        <span id="publishStatus" class="publish-status">未公開の変更はありません</span>
+      </div>
     </section>
 
     <main>
@@ -39,8 +49,11 @@
     </main>
 
     <footer>
-      <span>データはこの端末内に保存されます。</span>
-      <button id="resetAll" class="text-button" type="button">すべて初期化</button>
+      <span id="footerStatus">☁️ 公開ボードを読み込み中…</span>
+      <div class="footer-actions">
+        <button id="refreshShared" class="text-button" type="button">🔄 最新に更新</button>
+        <button id="resetAll" class="text-button owner-only hidden" type="button">この端末の下書きを初期化</button>
+      </div>
     </footer>
   </div>
 
@@ -48,7 +61,7 @@
     <form method="dialog" id="editorForm">
       <div class="dialog-head">
         <div>
-          <div class="eyebrow">SLOT SETTING</div>
+          <div class="eyebrow">OWNER / SLOT SETTING</div>
           <h2 id="editorTitle">SEを登録</h2>
         </div>
         <button class="icon-close" value="cancel" aria-label="閉じる">✕</button>
@@ -59,18 +72,15 @@
           <span>ボタン名</span>
           <input id="slotName" type="text" maxlength="16" placeholder="例：拍手" />
         </label>
-
         <label>
           <span>絵文字</span>
           <input id="slotEmoji" type="text" maxlength="4" placeholder="👏" />
         </label>
-
         <label class="full">
           <span>SEファイル</span>
           <input id="slotFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" />
           <small id="currentFileName">未登録</small>
         </label>
-
         <label class="full">
           <span>個別音量</span>
           <div class="inline-range">
@@ -78,12 +88,10 @@
             <strong id="slotVolumeLabel">100%</strong>
           </div>
         </label>
-
         <fieldset class="full">
           <legend>ボタンのかたち</legend>
           <div id="shapeChoices" class="shape-choices"></div>
         </fieldset>
-
         <fieldset class="full">
           <legend>ボタンカラー</legend>
           <div id="colorChoices" class="color-choices"></div>
@@ -94,7 +102,37 @@
         <button id="deleteSlot" class="pill danger ghost" type="button">🗑 登録解除</button>
         <div class="spacer"></div>
         <button class="pill secondary" value="cancel">キャンセル</button>
-        <button id="saveSlot" class="pill primary" type="button">💾 保存</button>
+        <button id="saveSlot" class="pill primary" type="button">💾 下書き保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="ownerDialog" class="editor-dialog owner-dialog">
+    <form method="dialog" id="ownerForm">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow">OWNER LOGIN</div>
+          <h2>🔐 オーナーモード</h2>
+        </div>
+        <button class="icon-close" value="cancel" aria-label="閉じる">✕</button>
+      </div>
+      <div class="owner-login-body">
+        <p>このボードのGitHubリポジトリだけに書き込める <strong>Fine-grained personal access token</strong> を入力します。</p>
+        <label>
+          <span>GitHub Token</span>
+          <input id="ownerToken" type="password" autocomplete="off" placeholder="github_pat_..." />
+        </label>
+        <div class="security-note">
+          🔒 トークンはこのタブの <strong>sessionStorage</strong> にだけ保持し、公開データには保存しません。権限は <strong>Contents: Read and write</strong>、対象リポジトリは <strong>pon-se-boardのみ</strong> を推奨します。
+        </div>
+        <div class="public-note">
+          ⚠️ 「みんなに公開」を押したSE音声は、公開GitHubリポジトリから誰でも再生できる状態になります。
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <div class="spacer"></div>
+        <button class="pill secondary" value="cancel">キャンセル</button>
+        <button id="ownerConnect" class="pill primary" type="button">🔓 オーナーになる</button>
       </div>
     </form>
   </dialog>
