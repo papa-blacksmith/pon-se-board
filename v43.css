@@ -1,0 +1,112 @@
+/* PON! SE Board v4.3 — cross-browser heart / flower / star SVG shapes */
+
+.shape-heart,
+.shape-flower,
+.shape-star {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* Disable the old CSS-mask implementation. iOS Safari could hide these layers. */
+.shape-heart::before,
+.shape-heart::after,
+.shape-flower::before,
+.shape-flower::after,
+.shape-star::before,
+.shape-star::after {
+  display: none !important;
+  content: none !important;
+}
+
+.shape-svg {
+  position: absolute;
+  inset: 1.5%;
+  width: 97%;
+  height: 97%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+  filter:
+    drop-shadow(0 7px 0 color-mix(in srgb, var(--pad-color), #8d5e78 18%))
+    drop-shadow(0 14px 14px rgba(102,67,91,.16));
+}
+
+.shape-svg .shape-main {
+  fill: var(--pad-color);
+  stroke: rgba(255,255,255,.78);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+}
+
+.shape-svg .shape-inner {
+  fill: rgba(255,255,255,.13);
+  stroke: rgba(255,255,255,.55);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.shape-svg .flower-main circle {
+  fill: var(--pad-color);
+  stroke: rgba(255,255,255,.72);
+  stroke-width: 1.8;
+}
+
+.shape-svg .flower-center {
+  fill: rgba(255,255,255,.20);
+  stroke: rgba(255,255,255,.52);
+  stroke-width: 1.8;
+}
+
+.shape-heart .pad-content,
+.shape-flower .pad-content,
+.shape-star .pad-content {
+  position: relative;
+  z-index: 2;
+}
+
+.shape-heart .pad-content { padding-top: 4%; }
+.shape-flower .pad-content { padding-top: 1%; }
+.shape-star .pad-content { transform: scale(.80); }
+
+.shape-heart .pad-number,
+.shape-flower .pad-number,
+.shape-star .pad-number,
+.shape-heart .cloud-mark,
+.shape-flower .cloud-mark,
+.shape-star .cloud-mark {
+  z-index: 3;
+}
+
+.shape-heart .pad-number { top: 19%; right: 16%; }
+.shape-flower .pad-number { top: 13%; right: 14%; }
+.shape-star .pad-number { top: 20%; right: 20%; }
+.shape-heart .cloud-mark { top: 19%; left: 16%; }
+.shape-flower .cloud-mark { top: 13%; left: 14%; }
+.shape-star .cloud-mark { top: 20%; left: 20%; }
+
+.shape-heart:active .shape-svg,
+.shape-heart.playing .shape-svg,
+.shape-flower:active .shape-svg,
+.shape-flower.playing .shape-svg,
+.shape-star:active .shape-svg,
+.shape-star.playing .shape-svg {
+  transform: translateY(5px) scaleX(1.045) scaleY(.91);
+  filter:
+    drop-shadow(0 2px 0 color-mix(in srgb, var(--pad-color), #8d5e78 15%))
+    drop-shadow(0 7px 9px rgba(102,67,91,.12));
+}
+
+/* Safari fallback if color-mix is unavailable in an older WebView. */
+@supports not (color: color-mix(in srgb, red, white)) {
+  .shape-svg {
+    filter: drop-shadow(0 7px 0 rgba(120,80,103,.15)) drop-shadow(0 14px 14px rgba(102,67,91,.16));
+  }
+}
+
+@media (max-width: 520px) {
+  .shape-svg { inset: 2.5%; width: 95%; height: 95%; }
+  .shape-star .pad-content { transform: scale(.76); }
+}
