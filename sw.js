@@ -1,5 +1,5 @@
-const CACHE = "pon-se-board-v4-shared";
-const ASSETS = ["./", "./index.html", "./styles.css", "./v4.css", "./app.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "pon-se-board-v4-1-permission-fix";
+const ASSETS = ["./", "./index.html", "./styles.css", "./v4.css", "./app.js", "./permission-fix.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
@@ -18,9 +18,9 @@ self.addEventListener("fetch", event => {
 
   event.respondWith(
     fetch(event.request).then(response => {
-      const copy = response.clone();
-      caches.open(CACHE).then(cache => cache.put(event.request, copy));
+      const copy=response.clone();
+      caches.open(CACHE).then(cache=>cache.put(event.request,copy));
       return response;
-    }).catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
+    }).catch(()=>caches.match(event.request).then(cached=>cached||caches.match("./index.html")))
   );
 });
