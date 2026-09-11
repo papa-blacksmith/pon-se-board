@@ -1,6 +1,6 @@
 {
   "version": 4.2,
-  "updatedAt": "2026-09-06T14:22:35.561Z",
+  "updatedAt": "2026-09-11T13:00:20.774Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -94,23 +94,23 @@
     },
     {
       "id": "4d6ba789-7a7f-40be-89a7-db7b3bedfd45",
-      "name": "",
+      "name": "マリオゲームオーバー",
       "emoji": "🎺",
       "color": "#f1d5ff",
       "volume": 1,
-      "fileName": "",
+      "fileName": "mariogemuoba.mp3",
       "shape": "circle",
-      "remotePath": ""
+      "remotePath": "shared/audio/4d6ba789-7a7f-40be-89a7-db7b3bedfd45.mp3"
     },
     {
       "id": "4d4d916c-f30f-4c25-8fca-ce888b8d16e5",
-      "name": "",
+      "name": "チーン効果音",
       "emoji": "🎮",
       "color": "#f5d6e7",
       "volume": 1,
-      "fileName": "",
+      "fileName": "chin-xiao-guo-yin_s5phJIA.mp3",
       "shape": "paw",
-      "remotePath": ""
+      "remotePath": "shared/audio/4d4d916c-f30f-4c25-8fca-ce888b8d16e5.mp3"
     },
     {
       "id": "3114ebef-72a2-42d8-98d7-2516206a7fab",
