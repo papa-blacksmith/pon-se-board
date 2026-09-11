@@ -1,6 +1,6 @@
 {
   "version": 4.2,
-  "updatedAt": "2026-09-11T13:02:45.501Z",
+  "updatedAt": "2026-09-11T13:24:54.161Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -124,13 +124,13 @@
     },
     {
       "id": "1bec4c2c-f1ca-45cd-a8cf-502ff49b5b69",
-      "name": "",
-      "emoji": "👏",
+      "name": "ピンポン○",
+      "emoji": "🔴",
       "color": "#ffd1e3",
       "volume": 1,
-      "fileName": "",
+      "fileName": "zheng-jie.mp3",
       "shape": "paw",
-      "remotePath": ""
+      "remotePath": "shared/audio/1bec4c2c-f1ca-45cd-a8cf-502ff49b5b69.mp3"
     },
     {
       "id": "3827f76b-7393-4536-a17d-54cf8cb73d19",
