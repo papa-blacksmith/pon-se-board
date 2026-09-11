@@ -1,6 +1,6 @@
 {
   "version": 4.2,
-  "updatedAt": "2026-09-11T13:00:20.774Z",
+  "updatedAt": "2026-09-11T13:02:45.501Z",
   "slots": [
     {
       "id": "3a051571-fe79-443e-adee-ac80325bf42e",
@@ -114,13 +114,13 @@
     },
     {
       "id": "3114ebef-72a2-42d8-98d7-2516206a7fab",
-      "name": "",
+      "name": "新規入室音",
       "emoji": "💖",
       "color": "#e7e4f5",
       "volume": 1,
-      "fileName": "",
-      "shape": "squircle",
-      "remotePath": ""
+      "fileName": "huamima.mp3",
+      "shape": "star",
+      "remotePath": "shared/audio/3114ebef-72a2-42d8-98d7-2516206a7fab.mp3"
     },
     {
       "id": "1bec4c2c-f1ca-45cd-a8cf-502ff49b5b69",
